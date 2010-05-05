@@ -1,0 +1,25 @@
+# $target_patterns = %r%^(apps/|batch/|bin/|lib/).*\.php$%
+# $target_patterns = %r%^(plugins/dinoUtilsPlugin/lib).*\.php$%
+$target_patterns = Regexp.union(
+  %r%^plugins/dino(Utils|JobQueue)Plugin/lib.*\.php$%
+  # %r%^plugins/(dinoUtils|dinoJobQueue)Plugin/lib.*\.php$%
+)
+
+$exception_patterns = [
+  # %r%^(\.\/?)?(cache|config|data|plugins|autotest|doc|log|symfony|web)/%,
+  %r%^(\.\/?)?(cache|config|data|autotest|doc|log|symfony|web)/%,
+  %r%apps/.*/templates/%
+]
+
+Autotest.add_hook :initialize do |at|
+  ($exception_patterns || []).each do |regexp|
+    at.add_exception regexp
+  end
+  
+  at.clear_mappings
+  at.add_mapping($target_patterns) do |filename, _|
+    testfile = filename =~ /^plugins/ ? at.find_plugin_test(filename) : at.find_local_unit_test(filename)
+    puts "src: #{filename}  ->  test: #{testfile}"
+    [testfile]
+  end
+end
