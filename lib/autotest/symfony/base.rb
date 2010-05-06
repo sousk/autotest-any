@@ -4,7 +4,8 @@ module Autotest::Symfony
   class Base < Autotest::Any::Base    
     
     def find_local_unit_test(source)
-      source
+      t = source.gsub(/(\.class)?\.php$/, '')
+      "test/unit/#{t}Test.php"
     end
     
     # find plugin's test file
@@ -17,7 +18,7 @@ module Autotest::Symfony
       if t.match %r%^plugins/([^/]+)/(.+)%
         "plugins/#{$1}/test/#{$2}Test.php"
       else
-        ""
+        nil
       end
     end
     
