@@ -10,7 +10,8 @@ module Autotest::Symfony
         /Failed test/,
         /Fatal error/,
         /Warning:.*on line [0-9]+/,
-        /Notice:.*on line [0-9]+/
+        /Notice:.*on line [0-9]+/,
+        /Exception:.*on line [0-9]+/
       )) ? false : true
     end
     
