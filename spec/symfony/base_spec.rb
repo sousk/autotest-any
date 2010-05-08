@@ -18,11 +18,20 @@ describe Autotest::Symfony::Base do
     }
   end
   
-  context "local test" do
+  context "local unit test" do
     it {
       at.find_local_unit_test(
         'lib/foo/Bar.class.php'
-      ).should == "test/unit/lib/foo/BarTest.php"
+      ).should == "test/unit/lib/foo/BarUnitTest.php"
     }
   end
+  
+  context "local functional test" do
+    it {
+      at.find_local_functional_test(
+        'lib/foo/Bar.class.php'
+      ).should == "test/functional/lib/foo/BarFunctionalTest.php"
+    }
+  end
+  
 end

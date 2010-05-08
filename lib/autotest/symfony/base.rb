@@ -5,7 +5,11 @@ module Autotest::Symfony
     
     def find_local_unit_test(source)
       t = source.gsub(/(\.class)?\.php$/, '')
-      "test/unit/#{t}Test.php"
+      "test/unit/#{t}UnitTest.php"
+    end
+    def find_local_functional_test(source)
+      t = source.gsub(/(\.class)?\.php$/, '')
+      "test/functional/#{t}FunctionalTest.php"
     end
     
     # find plugin's test file
