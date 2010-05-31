@@ -15,6 +15,10 @@ describe Autotest::Symfony::Base do
       at.find_plugin_test(
         'plugins/Foo/lib/Bar.class.php'
       ).should == "plugins/Foo/test/lib/BarTest.php"
+      
+      at.find_plugin_unit_test(
+        'plugins/Foo/lib/Bar.class.php'
+      ).should == "plugins/Foo/test/unit/lib/BarUnitTest.php"
     }
   end
   

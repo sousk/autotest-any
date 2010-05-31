@@ -26,5 +26,14 @@ module Autotest::Symfony
       end
     end
     
+    def find_plugin_unit_test(source)
+      # do not change the source text here (like a gsub!)
+      t = source.gsub(/(\.class)?\.php$/, '')
+      if t.match %r%^plugins/([^/]+)/(.+)%
+        "plugins/#{$1}/test/unit/#{$2}UnitTest.php"
+      else
+        nil
+      end
+    end
   end
 end
